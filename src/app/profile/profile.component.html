@@ -1,0 +1,43 @@
+<h1>My profile</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Login: {{ monster.login }}</span>
+	<span class="card-title">Role: </span>
+	<select [(ngModel)]="selectedRole" name="selectedRole" (change)="onRoleChange()">
+		<option [value]="" disabled selected>Choose your role!</option>
+		<option [selected]="r === selectedRole" *ngFor="let r of roles">  
+			{{r}}  
+		</option>
+	</select>
+</div>
+</div>
+
+<div class="center-align" *ngIf="displayButton">
+	<button class="btn waves-effect waves-light" type="submit" (click)="update()">
+		<i class="material-icons right">Update!</i>
+	</button>
+</div>
+
+<h1>Add a friend</h1>
+<div class="row">
+  <div *ngFor="let m of monsters" class="col s12 m6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{m.login}}</span>
+        <p>Role: {{m.role}}</p>
+      </div>
+      <div class="card-action">
+        <ng-container *ngIf="isFriend(m.login); then added; else add">
+        </ng-container>
+
+        <ng-template #added>
+          <a (click)="deleteFriend(m.login)" class="btn">Delete</a>
+        </ng-template>
+        <ng-template #add>
+          <a (click)="addFriend(m.login)" class="btn">Add</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
