@@ -21,9 +21,7 @@ export class AuthService {
           console.log('error caught in service')
           console.error(err);
  
-          //Handle the error here
- 
-          return throwError(err);    //Rethrow it back to component
+          return throwError(err);
         })
       );
   }
@@ -34,9 +32,7 @@ export class AuthService {
           console.log('error caught in service')
           console.error(err);
  
-          //Handle the error here
- 
-          return throwError(err);    //Rethrow it back to component
+          return throwError(err);
         })
       );
   }
@@ -47,9 +43,7 @@ export class AuthService {
           console.log('error caught in service')
           console.error(err);
  
-          //Handle the error here
- 
-          return throwError(err);    //Rethrow it back to component
+          return throwError(err);
         })
       );
   }
@@ -60,9 +54,7 @@ export class AuthService {
           console.log('error caught in service')
           console.error(err);
  
-          //Handle the error here
- 
-          return throwError(err);    //Rethrow it back to component
+          return throwError(err);
         })
       );
   }

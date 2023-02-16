@@ -1,7 +1,9 @@
+/* tslint:disable */
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Monster } from '../interfaces/monster';
 import { Roles } from '../interfaces/roles';
 import { AuthService } from '../shared/auth.service';
+import { SignupComponent } from '../signup/signup.component';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +16,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
   selectedRole: string = "";
   displayButton: Boolean = false;
   monsters: Array<Monster>;
+  currentMonsterLogin: string = "";
+  currentMonsterFriends: Array<string> = [""];
 
   constructor(private authService: AuthService) {}
 
@@ -32,6 +36,8 @@ export class ProfileComponent implements OnInit, AfterViewInit {
       id: currentMonster._id,
       friends: currentMonster.friends
     };
+    this.currentMonsterLogin = this.monster.id as string;
+    this.currentMonsterFriends = currentMonster.friends;
     this.getMonsters();
   }
 

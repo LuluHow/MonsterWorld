@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
 import { Monster } from '../interfaces/monster';
 import { Roles } from '../interfaces/roles';
@@ -20,6 +20,9 @@ export class SignupComponent implements OnInit, AfterViewInit {
   errorLogin: Boolean = false;
   errorPassword: Boolean = false;
   errorRole: Boolean = false;
+  @Input() public currentMonsterLogin: string = "";
+  @Input() public currentMonsterRole: string = "";
+  @Input() public currentMonsterFriends: Array<string> = [];
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -55,8 +58,19 @@ export class SignupComponent implements OnInit, AfterViewInit {
       .signUp({login: this.login, password: this.password, role: this.selectedRole})
       .subscribe(
       data => {
-        localStorage.setItem('currentMonster', JSON.stringify(data));
-        this.router.navigateByUrl('/profile')
+        if(this.currentMonsterLogin && this.currentMonsterLogin !== "") {
+          this.currentMonsterFriends.push(this.login);
+          this.authService
+          .update({id: this.currentMonsterLogin, role: this.currentMonsterRole, friends: this.currentMonsterFriends}).subscribe(
+            data => {
+this.router.navigateByUrl('/profile')
+            }, error => {
+              return false;
+            });
+        } else {
+          localStorage.setItem('currentMonster', JSON.stringify(data));
+          this.router.navigateByUrl('/profile')
+        }
       }, 
       error => {
         return false;
